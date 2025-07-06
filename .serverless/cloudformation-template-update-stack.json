@@ -1,0 +1,64 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "S3UploadBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "alex-page-np",
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "Content-Type"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "HEAD"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "ExposedHeaders": [
+                "Date"
+              ]
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "RestrictPublicBuckets": true,
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": "alex-stack-bucket-page",
+      "Export": {
+        "Name": "sls-frontend-np-ServerlessDeploymentBucketName"
+      }
+    },
+    "S3PageBucketArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "S3UploadBucket",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "S3-Upload-Bucket-Arn"
+      }
+    },
+    "S3PageBucket": {
+      "Value": {
+        "Ref": "S3UploadBucket"
+      },
+      "Export": {
+        "Name": "S3-Upload-Bucket"
+      }
+    }
+  }
+}

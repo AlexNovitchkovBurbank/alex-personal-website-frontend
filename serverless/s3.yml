@@ -1,0 +1,150 @@
+# replication:
+#   bucketArn: arn:${self:custom.partition}:s3:::${self:custom.org}-${self:service}-${opt:stage}-${self:custom.replication.region.${opt:region}}
+#   roleName: ${self:service}-${opt:stage}-${opt:region}-replicate
+#   region:
+#     us-east-1: us-west-2
+#     us-west-2: us-east-1
+
+resources:
+  Resources:
+    FaultLake:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        BucketName: ${self:service}-${self:custom.stage}
+        AccessControl: Private
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+        VersioningConfiguration:
+          Status: Enabled
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        # LifecycleConfiguration: # lifecycle of objects in s3, delete after certain number of days
+        #   Rules:
+        #     - Prefix: ''
+        #       Status: Enabled
+        #       ExpirationInDays: 92
+        # # Replication depends on self being deployed already to mirroring region
+        # ReplicationConfiguration:
+        #   Fn::If:
+        #     - IsReplicationRegionDeployed
+        #     - Role: !Sub 'arn:${AWS::Partition}:iam::${aws:accountId}:role/${self:custom.replication.roleName}'
+        #       Rules:
+        #         - Destination:
+        #             FaultLake: ${self:custom.replication.bucketArn}
+        #           Status: Enabled
+        #           Prefix: ''
+        #     - !Ref 'AWS::NoValue'
+
+    # BucketReplicationRole:
+    #   DependsOn: FaultLake
+    #   Type: AWS::IAM::Role
+    #   Properties:
+    #     RoleName: ${self:custom.replication.roleName}
+    #     AssumeRolePolicyDocument:
+    #       Statement:
+    #         - Effect: Allow
+    #           Principal:
+    #             Service:
+    #               - s3.amazonaws.com
+    #           Action:
+    #             - sts:AssumeRole
+    #     Policies:
+    #       - PolicyName: replicate
+    #         PolicyDocument:
+    #           Statement:
+    #             - Effect: Allow
+    #               Action:
+    #                 - s3:GetReplicationConfiguration
+    #                 - s3:ListBucket
+    #               Resource:
+    #                 Fn::GetAtt: [ FaultLake, Arn ]
+    #             - Effect: Allow
+    #               Action:
+    #                 - s3:GetObjectVersion
+    #                 - s3:GetObjectVersionAcl
+    #               Resource:
+    #                 - Fn::Join:
+    #                   - ''
+    #                   - - Fn::GetAtt: [ FaultLake, Arn ]
+    #                     - '*'
+    #             - Effect: Allow
+    #               Action:
+    #                 - s3:ReplicateObject
+    #                 - s3:ReplicateDelete
+    #                 - s3:ObjectOwnerOverrideToBucketOwner
+    #               Resource: ${self:custom.replication.bucketArn}/*
+
+
+    FaultLakePolicy:
+      Type: AWS::S3::BucketPolicy
+      DependsOn: FaultLake
+      Properties: 
+        Bucket: !Ref FaultLake
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Action:
+                - 's3:DeleteBucketPolicy'
+                - 's3:PutBucketPolicy'
+              Effect: Deny
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref FaultLake
+              Principal: "*"
+              Condition:
+                ArnNotEquals:
+                  aws:PrincipalARN:
+                    - !Sub "arn:aws:iam::167345660221:user/Alex"
+            - Action:
+                - 's3:GetObject'
+              Effect: Deny
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref FaultLake
+                  - '/*'
+              Principal: "*"
+              Condition:
+                ArnNotEquals:
+                  aws:PrincipalARN:
+                    - !Sub "arn:aws:iam::167345660221:user/Alex"       
+            - Action:
+                - 's3:DeleteObject*'
+              Effect: Deny
+              Resource: !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref FaultLake
+                  - '/*'
+              Principal: "*"
+              Condition:
+                ArnNotEquals:
+                  aws:PrincipalARN:
+                    - !Sub "arn:aws:iam::167345660221:user/Alex"
+  #         - Effect: Allow
+  #           Principal:
+  #             AWS: !Sub 'arn:${AWS::Partition}:iam::${aws:accountId}:root'
+  #           Action:
+  #             - s3:ReplicateDelete
+  #             - s3:ReplicateObject
+  #             - s3:ObjectOwnerOverrideToBucketOwner
+  #           Resource:
+  #             - Fn::Join:
+  #               - ''
+  #               - - Fn::GetAtt: [ FaultLake, Arn ]
+  #                 - '/*'
+
+  Outputs:
+    BucketName:
+      Value:
+        Ref: FaultLake
+    BucketArn:
+      Value:
+        Fn::GetAtt: [ FaultLake, Arn ]

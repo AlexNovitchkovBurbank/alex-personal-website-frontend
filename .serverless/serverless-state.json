@@ -1,0 +1,155 @@
+{
+  "service": {
+    "service": "frontend",
+    "serviceObject": {
+      "name": "frontend"
+    },
+    "provider": {
+      "name": "aws",
+      "deploymentBucket": "alex-stack-bucket-page",
+      "stage": "np",
+      "region": "us-west-2",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "S3UploadBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "alex-page-np",
+              "CorsConfiguration": {
+                "CorsRules": [
+                  {
+                    "AllowedHeaders": [
+                      "Content-Type"
+                    ],
+                    "AllowedMethods": [
+                      "GET",
+                      "HEAD"
+                    ],
+                    "AllowedOrigins": [
+                      "*"
+                    ],
+                    "ExposedHeaders": [
+                      "Date"
+                    ]
+                  }
+                ]
+              },
+              "PublicAccessBlockConfiguration": {
+                "RestrictPublicBuckets": true,
+                "BlockPublicAcls": true,
+                "BlockPublicPolicy": true,
+                "IgnorePublicAcls": true
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "alex-stack-bucket-page",
+            "Export": {
+              "Name": "sls-frontend-np-ServerlessDeploymentBucketName"
+            }
+          },
+          "S3PageBucketArn": {
+            "Value": {
+              "Fn::GetAtt": [
+                "S3UploadBucket",
+                "Arn"
+              ]
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket-Arn"
+            }
+          },
+          "S3PageBucket": {
+            "Value": {
+              "Ref": "S3UploadBucket"
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket"
+            }
+          }
+        }
+      }
+    },
+    "pluginsData": {},
+    "functions": {},
+    "resources": {
+      "Resources": {
+        "S3UploadBucket": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "BucketName": "alex-page-np",
+            "CorsConfiguration": {
+              "CorsRules": [
+                {
+                  "AllowedHeaders": [
+                    "Content-Type"
+                  ],
+                  "AllowedMethods": [
+                    "GET",
+                    "HEAD"
+                  ],
+                  "AllowedOrigins": [
+                    "*"
+                  ],
+                  "ExposedHeaders": [
+                    "Date"
+                  ]
+                }
+              ]
+            },
+            "PublicAccessBlockConfiguration": {
+              "RestrictPublicBuckets": true,
+              "BlockPublicAcls": true,
+              "BlockPublicPolicy": true,
+              "IgnorePublicAcls": true
+            }
+          }
+        }
+      },
+      "Outputs": {
+        "S3PageBucketArn": {
+          "Value": {
+            "Fn::GetAtt": [
+              "S3UploadBucket",
+              "Arn"
+            ]
+          },
+          "Export": {
+            "Name": "S3-Upload-Bucket-Arn"
+          }
+        },
+        "S3PageBucket": {
+          "Value": {
+            "Ref": "S3UploadBucket"
+          },
+          "Export": {
+            "Name": "S3-Upload-Bucket"
+          }
+        }
+      }
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless",
+    "initialServerlessConfig": {
+      "service": "frontend",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      }
+    },
+    "appId": null,
+    "orgId": null,
+    "layers": {}
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/frontend/np/1751695920760-2025-07-05T06:12:00.760Z",
+    "artifact": ""
+  }
+}

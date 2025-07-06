@@ -1,0 +1,109 @@
+resources:
+    LogGroup: 
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: ${self:service}-kinesis-firehose-${self:custom.stage}
+        #RetentionInDays: ${param:logRetentionInDays}
+
+    LogStream:
+      Type: AWS::Logs::LogStream
+      DependsOn: LogGroup
+      Properties:
+        LogGroupName:
+          Ref: LogGroup
+        LogStreamName: ${self:service}
+
+    DeliveryStream:
+      Type: AWS::KinesisFirehose::DeliveryStream
+      DependsOn: [FaultLake, LogStream, LogGroup, DeliveryRole]
+      Properties:
+        DeliveryStreamType: DirectPut
+        ExtendedS3DestinationConfiguration:
+          BucketARN:
+            Fn::GetAtt: [ FaultLake, Arn ]
+          Prefix: ${opt:region}/
+          BufferingHints:
+            IntervalInSeconds: 60
+            SizeInMBs: 50
+          CompressionFormat: GZIP
+          RoleARN:
+            Fn::GetAtt: [ DeliveryRole, Arn ]
+          CloudWatchLoggingOptions: 
+            Enabled: true
+            LogGroupName:
+              Ref: LogGroup
+            LogStreamName:
+              Ref: LogStream
+
+    DeliveryStreamRole:
+      Type: AWS::IAM::Role
+      DependsOn: DeliveryStream
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: sns.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:               
+          - PolicyName: ${self:service}-subscription-role-policy-${self:custom.stage}
+            PolicyDocument:
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - firehose:DescribeDeliveryStream
+                    - firehose:ListDeliveryStreams
+                    - firehose:ListTagsForDeliveryStream
+                    - firehose:PutRecord
+                    - firehose:PutRecordBatch
+                  Resource:
+                    - Fn::GetAtt: [ DeliveryStream, Arn ]
+    DeliveryRole:
+      Type: AWS::IAM::Role
+      DependsOn: [FaultLake, LogGroup]
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: firehose.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:               
+          - PolicyName: delivery
+            PolicyDocument:
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - s3:AbortMultipartUpload
+                    - s3:GetBucketLocation
+                    - s3:GetObject
+                    - s3:ListBucket
+                    - s3:ListBucketMultipartUploads
+                    - s3:PutObject
+                  Resource:
+                    - Fn::GetAtt: [ FaultLake, Arn ]
+                    - Fn::Join:
+                        - /
+                        - - Fn::GetAtt: [ FaultLake, Arn ]
+                          - '*'
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogStream
+                    - logs:CreateLogGroup
+                    - logs:PutLogEvents
+                  Resource:
+                    - Fn::GetAtt: [ LogGroup, Arn ]
+
+        FaultTopicSubscription:
+          Type: AWS::SNS::Subscription
+          Properties:
+            Protocol: firehose
+            Endpoint:
+              Fn::GetAtt: [ DeliveryStream, Arn ]
+            SubscriptionRoleArn:
+              Fn::GetAtt: [ DeliveryStreamRole, Arn ]
+            TopicArn: !ImportValue "sending-messages-error-topic-arn"
+            # RedrivePolicy:
+            #   deadLetterTargetArn:
+            #     Fn::GetAtt: [ DeliveryStreamSubscriptionDLQ, Arn ]
+      

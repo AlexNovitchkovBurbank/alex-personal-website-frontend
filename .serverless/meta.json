@@ -1,0 +1,313 @@
+{
+  "C:\\frontend\\frontend\\serverless.yml": {
+    "versionFramework": "4.17.1",
+    "servicePath": "C:\\frontend\\frontend\\serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "frontend",
+      "provider": {
+        "name": "aws",
+        "deploymentBucket": "alex-stack-bucket-page",
+        "stage": "np",
+        "region": "us-west-2",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "S3UploadBucket": {
+              "Type": "AWS::S3::Bucket",
+              "Properties": {
+                "BucketName": "alex-page-np",
+                "CorsConfiguration": {
+                  "CorsRules": [
+                    {
+                      "AllowedHeaders": [
+                        "Content-Type"
+                      ],
+                      "AllowedMethods": [
+                        "GET",
+                        "HEAD"
+                      ],
+                      "AllowedOrigins": [
+                        "*"
+                      ],
+                      "ExposedHeaders": [
+                        "Date"
+                      ]
+                    }
+                  ]
+                },
+                "PublicAccessBlockConfiguration": {
+                  "RestrictPublicBuckets": true,
+                  "BlockPublicAcls": true,
+                  "BlockPublicPolicy": true,
+                  "IgnorePublicAcls": true
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "alex-stack-bucket-page",
+              "Export": {
+                "Name": "sls-frontend-np-ServerlessDeploymentBucketName"
+              }
+            },
+            "S3PageBucketArn": {
+              "Value": {
+                "Fn::GetAtt": [
+                  "S3UploadBucket",
+                  "Arn"
+                ]
+              },
+              "Export": {
+                "Name": "S3-Upload-Bucket-Arn"
+              }
+            },
+            "S3PageBucket": {
+              "Value": {
+                "Ref": "S3UploadBucket"
+              },
+              "Export": {
+                "Name": "S3-Upload-Bucket"
+              }
+            }
+          }
+        }
+      },
+      "resources": {
+        "Resources": {
+          "S3UploadBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "alex-page-np",
+              "CorsConfiguration": {
+                "CorsRules": [
+                  {
+                    "AllowedHeaders": [
+                      "Content-Type"
+                    ],
+                    "AllowedMethods": [
+                      "GET",
+                      "HEAD"
+                    ],
+                    "AllowedOrigins": [
+                      "*"
+                    ],
+                    "ExposedHeaders": [
+                      "Date"
+                    ]
+                  }
+                ]
+              },
+              "PublicAccessBlockConfiguration": {
+                "RestrictPublicBuckets": true,
+                "BlockPublicAcls": true,
+                "BlockPublicPolicy": true,
+                "IgnorePublicAcls": true
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "S3PageBucketArn": {
+            "Value": {
+              "Fn::GetAtt": [
+                "S3UploadBucket",
+                "Arn"
+              ]
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket-Arn"
+            }
+          },
+          "S3PageBucket": {
+            "Value": {
+              "Ref": "S3UploadBucket"
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket"
+            }
+          }
+        }
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "deploymentBucket": "alex-stack-bucket-page",
+      "stage": "np",
+      "region": "us-west-2",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "S3UploadBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "alex-page-np",
+              "CorsConfiguration": {
+                "CorsRules": [
+                  {
+                    "AllowedHeaders": [
+                      "Content-Type"
+                    ],
+                    "AllowedMethods": [
+                      "GET",
+                      "HEAD"
+                    ],
+                    "AllowedOrigins": [
+                      "*"
+                    ],
+                    "ExposedHeaders": [
+                      "Date"
+                    ]
+                  }
+                ]
+              },
+              "PublicAccessBlockConfiguration": {
+                "RestrictPublicBuckets": true,
+                "BlockPublicAcls": true,
+                "BlockPublicPolicy": true,
+                "IgnorePublicAcls": true
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "alex-stack-bucket-page",
+            "Export": {
+              "Name": "sls-frontend-np-ServerlessDeploymentBucketName"
+            }
+          },
+          "S3PageBucketArn": {
+            "Value": {
+              "Fn::GetAtt": [
+                "S3UploadBucket",
+                "Arn"
+              ]
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket-Arn"
+            }
+          },
+          "S3PageBucket": {
+            "Value": {
+              "Ref": "S3UploadBucket"
+            },
+            "Export": {
+              "Name": "S3-Upload-Bucket"
+            }
+          }
+        }
+      }
+    },
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "serviceRawFile": "service: frontend\r\n\r\nprovider:\r\n  name: aws\r\n  deploymentBucket: 'alex-stack-bucket-page'\r\n  stage: 'np'\r\n  #iam:\r\n    #deploymentRole: arn:iam::${aws:accountId}:role/${self:custom.subsys}--alex-page-${opt:stage}\r\n  #stackTags: ${file(serverless/tags.yml)}\r\n\r\n#params: ${file(serverless/config.yml):params}\r\n#custom: ${file(serverless/config.yml):custom}\r\n\r\nresources:\r\n  Resources:\r\n    S3UploadBucket:\r\n      Type: AWS::S3::Bucket\r\n      Properties:\r\n        BucketName: alex-page-${self:provider.stage}\r\n        CorsConfiguration:\r\n          CorsRules:\r\n            - AllowedHeaders:\r\n                - 'Content-Type'\r\n              AllowedMethods:\r\n                - GET\r\n                - HEAD\r\n              AllowedOrigins:\r\n                - '*'\r\n              ExposedHeaders:\r\n                - Date\r\n        PublicAccessBlockConfiguration:\r\n          RestrictPublicBuckets: true\r\n          BlockPublicAcls: true\r\n          BlockPublicPolicy: true\r\n          IgnorePublicAcls: true\r\n\r\n  Outputs:\r\n    S3PageBucketArn:\r\n      Value: !GetAtt S3UploadBucket.Arn\r\n      Export:\r\n        Name: S3-Upload-Bucket-Arn\r\n    S3PageBucket:\r\n      Value: !Ref S3UploadBucket\r\n      Export:\r\n        Name: S3-Upload-Bucket\r\n  \r\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {
+      "verbose": true,
+      "force": true,
+      "region": "us-west-2",
+      "stage": "np"
+    },
+    "orgId": "16349f95-af0f-4b00-88a2-091447887b5d",
+    "orgName": "alexnovitchkovburbankpersonal",
+    "userId": "L5SC6b6jxpYzRNtFsb",
+    "userName": "alexnovitchkovburbankpersonal",
+    "serviceProviderAwsAccountId": "167345660221",
+    "serviceProviderAwsCfStackName": "frontend-np",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-west-2:167345660221:stack/frontend-np/f0e9a1f0-5870-11f0-b74d-0603c7737557",
+    "serviceProviderAwsCfStackCreated": "2025-07-04T00:50:55.318Z",
+    "serviceProviderAwsCfStackUpdated": "2025-07-05T06:04:14.374Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "S3PageBucket",
+        "OutputValue": "arn:aws:s3:::alex-page-np",
+        "ExportName": "S3-Upload-Bucket-Arn"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "alex-stack-bucket-page",
+        "ExportName": "sls-frontend-np-ServerlessDeploymentBucketName"
+      }
+    ],
+    "compiledCloudFormationTemplate": {
+      "AWSTemplateFormatVersion": "2010-09-09",
+      "Description": "The AWS CloudFormation template for this Serverless application",
+      "Resources": {
+        "S3UploadBucket": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "BucketName": "alex-page-np",
+            "CorsConfiguration": {
+              "CorsRules": [
+                {
+                  "AllowedHeaders": [
+                    "Content-Type"
+                  ],
+                  "AllowedMethods": [
+                    "GET",
+                    "HEAD"
+                  ],
+                  "AllowedOrigins": [
+                    "*"
+                  ],
+                  "ExposedHeaders": [
+                    "Date"
+                  ]
+                }
+              ]
+            },
+            "PublicAccessBlockConfiguration": {
+              "RestrictPublicBuckets": true,
+              "BlockPublicAcls": true,
+              "BlockPublicPolicy": true,
+              "IgnorePublicAcls": true
+            }
+          }
+        }
+      },
+      "Outputs": {
+        "ServerlessDeploymentBucketName": {
+          "Value": "alex-stack-bucket-page",
+          "Export": {
+            "Name": "sls-frontend-np-ServerlessDeploymentBucketName"
+          }
+        },
+        "S3PageBucketArn": {
+          "Value": {
+            "Fn::GetAtt": [
+              "S3UploadBucket",
+              "Arn"
+            ]
+          },
+          "Export": {
+            "Name": "S3-Upload-Bucket-Arn"
+          }
+        },
+        "S3PageBucket": {
+          "Value": {
+            "Ref": "S3UploadBucket"
+          },
+          "Export": {
+            "Name": "S3-Upload-Bucket"
+          }
+        }
+      }
+    }
+  }
+}
