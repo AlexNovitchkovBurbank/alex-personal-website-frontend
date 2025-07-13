@@ -1,1 +1,5 @@
-.nav
+@media (min-width: 992px) {
+    .expanded-nav-item {
+        margin-left: 1em;
+    }
+}

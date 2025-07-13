@@ -24,7 +24,7 @@ const Nav = (props: NavProps) => {
                 <NavbarCollapse id="basic-navbar-nav">
                     {pages.map((page: string) => (
                         <NavItem className="d-flex flex-row justify-content-center">
-                            <NavLink className="ml4" href={`page${page}`}/>{page}
+                            <NavLink className="expanded-nav-item" href={`page${page}`}/>{page}
                         </NavItem>
                     ))}
                 </NavbarCollapse>

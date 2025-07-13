@@ -1,5 +1,5 @@
 import './App.css'
-import Nav from './Nav/Nav.tsx'
+import Nav from './nav/Nav.tsx'
 import { ProjectCard, type ProjectCardProps } from './ProjectCard.tsx'
 
 function App() {
