@@ -20,14 +20,21 @@ const Nav = (props: NavProps) => {
             <Container fluid>
                 <NavbarBrand>Alex's website</NavbarBrand>
                 <NavbarToggle aria-controls="basic-navbar-nav" />
-                <Navbar.Offcanvas placement="end">
-                <NavbarCollapse id="basic-navbar-nav">
+                <NavbarCollapse id="basic-navbar-nav" className="navbar-large-screens">
                     {pages.map((page: string) => (
                         <NavItem className="d-flex flex-row justify-content-center">
-                            <NavLink className="expanded-nav-item" href={`page${page}`}/>{page}
+                            <NavLink className="spaced-out" href={`/${page}`}>{page}</NavLink>
                         </NavItem>
                     ))}
                 </NavbarCollapse>
+                <Navbar.Offcanvas placement="end" className="navbar-small-screens">
+                    <Offcanvas.Body>
+                        {pages.map((page: string) => (
+                            <NavItem className="d-flex flex-row justify-content-center">
+                                <NavLink href={`/${page}`}>{page}</NavLink>
+                            </NavItem>
+                        ))}
+                    </Offcanvas.Body>
                 </Navbar.Offcanvas>
             </Container>
         </Navbar>
