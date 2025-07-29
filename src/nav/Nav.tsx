@@ -28,7 +28,7 @@ const Nav = (props: NavProps) => {
                     <>
                         <NavbarCollapse id="basic-navbar-nav">
                             {pages.map((page: string) => (
-                                <NavItem className="d-flex flex-row justify-content-center">
+                                <NavItem key={page} className="d-flex flex-row justify-content-center">
                                     <NavLink className="spaced-out" href={`/${page}`}>{page}</NavLink>
                                 </NavItem>
                             ))}
@@ -41,7 +41,7 @@ const Nav = (props: NavProps) => {
                         <Navbar.Offcanvas placement="end">
                             <Offcanvas.Body>
                                 {pages.map((page: string) => (
-                                    <NavItem className="d-flex flex-row justify-content-center">
+                                    <NavItem key={page} className="d-flex flex-row justify-content-center">
                                         <NavLink href={`/${page}`}>{page}</NavLink>
                                     </NavItem>
                                 ))}
