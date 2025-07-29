@@ -1,13 +1,18 @@
 import React from "react";
-import { AccordionCollapse, Container, Navbar, NavbarBrand, NavbarCollapse, NavbarText, NavbarToggle, NavItem, NavLink } from "react-bootstrap";
-import { Offcanvas } from "react-bootstrap";
+import { Offcanvas, AccordionCollapse, Container, Navbar, NavbarBrand, NavbarCollapse, NavbarText, NavbarToggle, NavItem, NavLink } from "react-bootstrap";
 import "./nav.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useMediaQuery } from 'react-responsive';
+
 
 type NavProps = {
     numPages: number
 }
 
 const Nav = (props: NavProps) => {
+    const smallScreenSize = useMediaQuery({ query: '(max-width: 991px)' });
+    const largeScreenSize = useMediaQuery({ query: '(min-width: 992px)' });
+
     const pages: Array<string> = [];
     let i = 0;
     while (i < props.numPages) {
@@ -19,23 +24,31 @@ const Nav = (props: NavProps) => {
         <Navbar collapseOnSelect expand='lg' bg="light" variant="light">
             <Container fluid>
                 <NavbarBrand>Alex's website</NavbarBrand>
-                <NavbarToggle aria-controls="basic-navbar-nav" />
-                <NavbarCollapse id="basic-navbar-nav" className="navbar-large-screens">
-                    {pages.map((page: string) => (
-                        <NavItem className="d-flex flex-row justify-content-center">
-                            <NavLink className="spaced-out" href={`/${page}`}>{page}</NavLink>
-                        </NavItem>
-                    ))}
-                </NavbarCollapse>
-                <Navbar.Offcanvas placement="end" className="navbar-small-screens">
-                    <Offcanvas.Body>
-                        {pages.map((page: string) => (
-                            <NavItem className="d-flex flex-row justify-content-center">
-                                <NavLink href={`/${page}`}>{page}</NavLink>
-                            </NavItem>
-                        ))}
-                    </Offcanvas.Body>
-                </Navbar.Offcanvas>
+                {largeScreenSize ?
+                    <>
+                        <NavbarCollapse id="basic-navbar-nav">
+                            {pages.map((page: string) => (
+                                <NavItem className="d-flex flex-row justify-content-center">
+                                    <NavLink className="spaced-out" href={`/${page}`}>{page}</NavLink>
+                                </NavItem>
+                            ))}
+                        </NavbarCollapse>
+                    </> : <></>
+                }
+                {smallScreenSize ? 
+                    <>
+                        <NavbarToggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Offcanvas placement="end">
+                            <Offcanvas.Body>
+                                {pages.map((page: string) => (
+                                    <NavItem className="d-flex flex-row justify-content-center">
+                                        <NavLink href={`/${page}`}>{page}</NavLink>
+                                    </NavItem>
+                                ))}
+                            </Offcanvas.Body>
+                        </Navbar.Offcanvas>
+                    </> : <></>
+                }
             </Container>
         </Navbar>
     )

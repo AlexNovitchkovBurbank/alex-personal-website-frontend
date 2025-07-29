@@ -8,6 +8,10 @@
     .navbar-small-screens {
         display: none;
     }
+
+    .navbar-large-screens {
+        display: block;
+    }
 }
 
 .spaced-out {
