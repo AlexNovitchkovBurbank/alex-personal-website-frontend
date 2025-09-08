@@ -23,6 +23,7 @@ function App() {
       key: 3
     }];
 
+
   return (
     <>
       <Nav numPages={5}/>
@@ -31,7 +32,6 @@ function App() {
           <ProjectCard key={item.key} description={item.description} githubUrl={item.githubUrl} title={item.title} />
         ))}
       </div>
-
     </>
   )
 }

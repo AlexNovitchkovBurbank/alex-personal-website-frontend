@@ -1,5 +1,4 @@
-import React from "react";
-import { Offcanvas, AccordionCollapse, Container, Navbar, NavbarBrand, NavbarCollapse, NavbarText, NavbarToggle, NavItem, NavLink } from "react-bootstrap";
+import { Offcanvas, Container, Navbar, NavbarBrand, NavbarCollapse, NavbarToggle, NavItem, NavLink } from "react-bootstrap";
 import "./nav.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useMediaQuery } from 'react-responsive';

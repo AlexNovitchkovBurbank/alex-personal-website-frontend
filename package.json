@@ -14,12 +14,13 @@
     "rm:dist": "aws s3 rm s3://alex-page-np --recursive"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^6.23.0",
+    "@aws-sdk/client-s3": "^3.864.0",
     "bootstrap": "^5.3.2",
+    "react": "^19.1.0",
     "react-bootstrap": "^2.8.0",
-    "react-responsive": "^10.0.1"
+    "react-dom": "^19.1.0",
+    "react-responsive": "^10.0.1",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
