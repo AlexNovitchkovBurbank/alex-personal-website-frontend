@@ -3,7 +3,9 @@ import {GetObjectCommand, ListObjectsV2Command, S3Client} from "@aws-sdk/client-
 const s3 = new S3Client({ region: 'us-west-2' });
 
 const stage = import.meta.env.VITE_STAGE;
-const bucketName = import.meta.env.VITE_PROJECT_DATA_S3_BUCKET_NAME || `alex-personal-website-project-data-${stage}`;
+const bucketNamePrefix = import.meta.env.VITE_PROJECT_DATA_S3_BUCKET_NAME_PREFIX;
+
+const bucketName = bucketNamePrefix + stage;
 
 export const getAllProjectDataFromS3 = async () => {
     const numObjectsInS3 = await getNumObjectsInS3(bucketName);

@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "dp:np:w": "sls deploy --verbose -r us-west-2 -s np --force",
     "dp:rm:w": "sls remove --verbose -r us-west-2 -s np",
-    "put:dist": "aws s3 sync dist s3://alex-page-np/ --delete",
+    "put:dist": "aws s3 sync dist s3://alex-personal-website-code-np/ --delete",
     "rm:dist": "aws s3 rm s3://alex-page-np --recursive"
   },
   "dependencies": {
