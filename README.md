@@ -1,4 +1,5 @@
 Deploy in the following order:
+
 stack for variables: https://github.com/AlexNovitchkovBurbank/alex-personal-website-west-variables
 bucket for the stacks: https://github.com/AlexNovitchkovBurbank/alex-s3-personal-website-stack-bucket
 bucket storing frontend code: https://github.com/AlexNovitchkovBurbank/alex-s3-personal-website-code-bucket
