@@ -1,4 +1,4 @@
-Deploy in the following order:
+Deploy in the following order (All buckets and the west variable github repos are private):
 
 stack for variables: https://github.com/AlexNovitchkovBurbank/alex-personal-website-west-variables
 bucket for the stacks: https://github.com/AlexNovitchkovBurbank/alex-s3-personal-website-stack-bucket
