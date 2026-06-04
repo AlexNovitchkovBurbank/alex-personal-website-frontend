@@ -5,6 +5,13 @@ export type ProjectCardProps = {
     key: number;
 };
 
+export type Project = {
+  title?: string;
+    description?: string;
+    githubUrl?: string;
+    key: number;
+}
+
 export const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className="project-card">

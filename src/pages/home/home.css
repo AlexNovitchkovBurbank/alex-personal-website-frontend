@@ -1,0 +1,51 @@
+/* ============================================================
+   Home Page Styles
+   ============================================================ */
+
+.home-page {
+  padding: 4rem 1.5rem;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home {
+  max-width: 680px;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  margin-bottom: 1.5rem;
+}
+
+.home-picture {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #ddd;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444;
+  font-weight: 600;
+}
+
+.home-subtitle {
+  font-size: 1.25rem;
+  color: #444;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .home-page {
+    padding: 3rem 1rem;
+  }
+
+  .home-picture {
+    width: 140px;
+    height: 140px;
+  }
+}

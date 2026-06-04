@@ -1,0 +1,42 @@
+/* ============================================================
+   Section Header Component
+   ============================================================ */
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.section-subtitle {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.picture-label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  pointer-events: none;
+}

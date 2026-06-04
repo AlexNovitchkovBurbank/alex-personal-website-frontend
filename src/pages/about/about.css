@@ -1,0 +1,15 @@
+/* ============================================================
+   About Page Styles
+   ============================================================ */
+ .page-content { padding: 2.5rem 1.5rem; min-height: 60vh; background: #fafafa; }
+ .center-column { display:flex; flex-direction:column; align-items:center; }
+ .page-title { margin: 0.25rem 0 1.25rem 0; font-weight:500; }
+ .circle-picture { width:100px; height:100px; border-radius:50%; background:#ddd; display:flex; align-items:center; justify-content:center; margin: 0.5rem 0; }
+ .about-me { margin-top: 0.8rem; color:#333; }
+
+ @media (min-width: 992px) {
+    .page-content { max-width: 560px; margin: 0 auto; }
+ }
+
+
+/* Add about page-specific styles here */

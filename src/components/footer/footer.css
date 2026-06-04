@@ -1,0 +1,19 @@
+/* ============================================================
+   Footer Component
+   ============================================================ */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-divider {
+  opacity: 0.5;
+}
