@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Project } from "../ProjectCard";
+import type { Project } from "../components/ProjectCard";
 
 const cloudfrontDistroUri = import.meta.env.VITE_CLOUDFRONT_DISTRO_URL;
 
