@@ -3,7 +3,6 @@ import {
   Offcanvas,
   Container,
   Navbar,
-  NavbarBrand,
   NavItem,
 } from "react-bootstrap";
 import "./nav.css";

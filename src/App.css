@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.page {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -27,40 +33,5 @@
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
-  }
-}
-
-.home-page {
-  padding: 4rem 1.5rem;
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home {
-  max-width: 680px;
-  text-align: center;
-}
-
-.home h1 {
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  margin-bottom: 1.5rem;
-}
-
-.home-subtitle {
-  font-size: 1.25rem;
-  color: #444;
-  margin: 0;
-}
-
-@media (max-width: 600px) {
-  .home-page {
-    padding: 3rem 1rem;
-  }
-
-  .home-image {
-    width: 140px;
-    height: 140px;
   }
 }
