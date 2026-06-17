@@ -11,7 +11,7 @@
     "dp:np:w": "sls deploy --verbose -r us-west-2 -s np --force",
     "dp:rm:w": "sls remove --verbose -r us-west-2 -s np",
     "put:dist": "aws s3 sync dist s3://alex-personal-website-code-np/ --delete",
-    "rm:dist": "aws s3 rm s3://alex-page-np --recursive"
+    "rm:dist": "aws s3 rm s3://alex-personal-website-code-np/ --recursive"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.864.0",

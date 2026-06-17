@@ -3,8 +3,8 @@ import "./home.css";
 const Home = () => {
   return (
     <main className="page">
-      <section className="bio">
-        <h1>Home</h1>
+      <h1>Home</h1>
+      <section className="home-bio">
         <img
           className="home-picture"
           aria-label="Profile picture"
